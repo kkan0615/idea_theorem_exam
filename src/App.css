@@ -1,0 +1,16 @@
+.input-group {
+  @apply flex flex-col space-y-2;
+}
+
+.input-group .input-label {
+  @apply font-bold text-base;
+}
+
+.input-group .input-label {
+  @apply font-bold text-base;
+}
+
+.input-group .inner-input-label:after {
+  content: '*';
+  @apply ml-1 text-red-500;
+}
