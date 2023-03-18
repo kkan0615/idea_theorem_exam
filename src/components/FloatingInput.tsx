@@ -17,11 +17,11 @@ function FloatingInput({ id, type, label, errorMsg, className, onChange, autocom
   const statusInputClasses = useMemo(() => {
     const classes: string[] = []
     if (errorMsg) {
-      classes.push('border-red-600')
-      classes.push('focus:border-red-600')
+      classes.push('border-error')
+      classes.push('focus:border-error')
     } else {
       classes.push('border-grey-300')
-      classes.push('focus:border-blue-600')
+      classes.push('focus:border-primary')
     }
 
     return classes.join(' ')
@@ -30,9 +30,9 @@ function FloatingInput({ id, type, label, errorMsg, className, onChange, autocom
   const statusLabelClasses = useMemo(() => {
     const classes: string[] = []
     if (errorMsg) {
-      classes.push('peer-focus:text-red-600')
+      classes.push('peer-focus:text-error')
     } else {
-      classes.push('peer-focus:text-blue-600')
+      classes.push('peer-focus:text-primary')
     }
 
     return classes.join(' ')
