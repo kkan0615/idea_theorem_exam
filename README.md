@@ -19,6 +19,7 @@ npm run build
 - [tailwindcss](https://tailwindcss.com/): A utility-first CSS framework packed with classes
 - [flowbite](https://flowbite.com/): Build websites even faster with components on top of Tailwind CSS
 - [axios](https://www.npmjs.com/package/axios)
+- [react-icons](https://react-icons.github.io/react-icons/): popular icons collection
 
 ## Files
 [Figma](https://www.figma.com/file/hi5v3c3hE0ax8pbppUA1xY/Account-Creation-Test)
