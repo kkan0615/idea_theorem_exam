@@ -17,13 +17,15 @@ import { monthNames } from '../date'
  */
 export const validationSchema = z.object({
   fullName: z.string({
+    // Not empty
     required_error: 'Full Name is required',
   })
+    // Not empty
     .min(1, {
-      message: 'Full Name field is required'
+      message: 'Full Name is required'
     })
     .refine(val => {
-      // Check special characters
+      // Check symbols
       return val.search(/^(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]).*$/) < 0
     }, {
       message: 'Symbol is not allowed',
@@ -35,13 +37,15 @@ export const validationSchema = z.object({
       message: 'Spaces around is invalid',
     }),
   contactNumber: z.string({
+    // Not empty
     required_error: 'Contact Number is required',
   })
+    // Not empty
     .min(1, {
       message: 'Contact Number is required'
     })
     .refine(val => {
-      // Check special characters
+      // Check Canadian phone number format
       // xxx-xxx-xxxx
       // xxxxxxxxxx
       const regex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
@@ -50,26 +54,30 @@ export const validationSchema = z.object({
       message: 'Type Contact Number like xxx-xxx-xxxx',
     }),
   email: z.string({
+    // Not empty
     required_error: 'Contact Number is required',
   })
+    // Not empty
     .min(1, {
       message: 'Email is required'
     })
+    // check email format
     .email({
       message: 'Type Email Format'
     }),
   password: z.string({
     required_error: 'Password is required'
   })
+    // Must have 8 characters in length
     .min(8, {
       message: 'minimum password is 8'
     })
     .refine(val => {
-      // Check lowercase
+      // Check Lower case (a-z)
       if (val.search(/[a-z]/i) < 0) return false
-      // Check uppercase
+      // Check upper case (A-Z)
       if (val.search(/[A-Z]/i) < 0) return false
-      // Check number
+      // Check numbers (0-9)
       if (val.search(/[0-9]/) < 0) return false
 
       return true
@@ -80,6 +88,7 @@ export const validationSchema = z.object({
     required_error: 'Confirm Password is required'
   }),
   year: z.string({
+    // Not empty
     required_error: 'year is required'
   })
     .refine(val => {
@@ -91,29 +100,37 @@ export const validationSchema = z.object({
       message: 'Invalid year',
     }),
   month: z.string({
+    // Not empty
     required_error: 'month is required'
-  }).min(3, {
-    message: 'month is required'
-  }),
+  })
+    // Not empty
+    .min(3, {
+      message: 'month is required'
+    }),
   day: z.string({
+    // Not empty
     required_error: 'day is required'
   })
+    // Not empty
     .min(1, {
       message: 'day is required'
     })
-}).refine(data => data.password === data.confirmPassword, {
-  path: ['confirmPassword'],
-  message: 'Passwords are not matched'
-}).refine(data => {
-  // Find the month by month name
-  const numberOfMonth = monthNames.findIndex(monthName => monthName === data.month)
-  if (numberOfMonth === -1) return false
-
-  const day = Number(data.day)
-  const lastDayInMonth = new Date(Number(data.year), numberOfMonth + 1, 0).getDate()
-  // Check day is between 1 and last day in month
-  return !(day > lastDayInMonth || day <= 0)
-}, {
-  path: ['day'],
-  message: 'Invalid day',
 })
+  // Must be the same as the password field
+  .refine(data => data.password === data.confirmPassword, {
+    path: ['confirmPassword'],
+    message: 'Passwords are not matched'
+  })
+  .refine(data => {
+    // Find the month by month name
+    const numberOfMonth = monthNames.findIndex(monthName => monthName === data.month)
+    if (numberOfMonth === -1) return false
+
+    const day = Number(data.day)
+    const lastDayInMonth = new Date(Number(data.year), numberOfMonth + 1, 0).getDate()
+    // Check day is between 1 and last day in month
+    return !(day > lastDayInMonth || day <= 0)
+  }, {
+    path: ['day'],
+    message: 'Invalid day',
+  })
