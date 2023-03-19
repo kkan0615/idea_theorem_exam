@@ -1,17 +1,19 @@
+/**
+  Input Group
+ */
 .input-group {
   @apply flex flex-col space-y-2;
 }
 
-.input-group .input-label {
-  @apply font-bold text-base;
-}
-
+/**
+  Label in Input-group
+ */
 .input-group .input-label {
   @apply font-bold text-base capitalize;
 }
 
 /**
-  Add * at the last
+  Add * (required mark) in label at the last
  */
 .input-group .label-required:after {
   content: '*';

@@ -11,7 +11,7 @@ import { earliestYear, monthNames } from './types/date'
 import { validationSchema } from './types/models/auth'
 
 // extracting the type
-type ValidationSchema = z.infer<typeof validationSchema>;
+type ValidationSchema = z.infer<typeof validationSchema>
 
 function App() {
   const {
