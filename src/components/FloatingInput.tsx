@@ -9,7 +9,6 @@ interface Props {
   label?: React.ReactElement
   errorMsg?: string
   className?: string
-  onChange?: (event: FormEvent<HTMLInputElement>) => void
   autocomplete?: string
   placeholder?: string
   register?: ReturnType<UseFormRegister<any>>

@@ -9,6 +9,7 @@ import FloatingInput from './components/FloatingInput'
 import Alert, { AlertStatus } from './components/Alert'
 import { earliestYear, monthNames } from './types/date'
 import { validationSchema } from './types/models/auth'
+import Selectbox from './components/Selectbox'
 
 // extracting the type
 type ValidationSchema = z.infer<typeof validationSchema>
@@ -205,55 +206,16 @@ function App() {
                     Birthday
                   </label>
                   <div className="flex space-x-4">
-                    <select
-                      id="birthday_day"
-                      {...register('day')}
-                      className="border border-gray-300 text-gray-900 text-sm rounded-lg
-                     focus:ring-primary focus:border-primary block w-full p-2.5"
-                    >
-                      {days.map(day => (
-                        <option
-                          key={day}
-                          value={day}
-                        >
-                          {day}
-                        </option>
-                      ))}
-                    </select>
-                    <select
-                      id="birthday_month"
-                      {...register('month')}
-                      className="border border-gray-300 text-gray-900 text-sm rounded-lg
-                     focus:ring-primary focus:border-primary block w-full p-2.5"
-                    >
-                      {monthNames.map(monthName => (
-                        <option
-                          key={monthName}
-                          value={monthName}
-                        >
-                          {monthName}
-                        </option>
-                      ))}
-                    </select>
-                    <select
-                      id="birthday_year"
-                      {...register('year')}
-                      className="border border-gray-300 text-gray-900 text-sm rounded-lg
-                     focus:ring-primary focus:border-primary block w-full p-2.5"
-                    >
-                      {years.map(year => (
-                        <option
-                          key={year}
-                          value={year}
-                        >
-                          {year}
-                        </option>
-                      ))}
-                    </select>
+                    <Selectbox id="birthday_day" options={days} register={register('day')} />
+                    <Selectbox id="birthday_month" options={monthNames} register={register('month')} />
+                    <Selectbox id="birthday_year" options={years} register={register('year')} />
                   </div>
-                  <p>
-                    {errors.day?.message || errors.year?.message || errors.month?.message}
-                  </p>
+                  {
+                    (errors.day?.message || errors.year?.message || errors.month?.message) ?
+                      <p className="mt-0.5 text-sm text-error">
+                        Sorry, {errors.day?.message || errors.year?.message || errors.month?.message}
+                      </p> : null
+                  }
                 </div>
               </div>
             </div>
