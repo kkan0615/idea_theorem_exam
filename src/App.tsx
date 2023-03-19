@@ -8,7 +8,7 @@ import Header from './components/Header'
 import FloatingInput from './components/FloatingInput'
 import Alert, { AlertStatus } from './components/Alert'
 import { earliestYear, monthNames } from './types/date'
-import { validationSchema } from './types/models/auth'
+import { AuthReq, AuthRes, validationSchema } from './types/models/auth'
 import Selectbox from './components/Selectbox'
 
 // extracting the type
@@ -86,15 +86,15 @@ function App() {
       setAlertStatus('success')
       setAlertMsg('')
       // Send data
-      const res = await axios.post('https://fullstack-test-navy.vercel.app/api/users/create', {
+      const res = await axios.post<AuthRes<AuthReq>>('https://fullstack-test-navy.vercel.app/api/users/create', {
         full_name: data.fullName,
         contact_number: data.contactNumber,
         email: data.email,
         password: data.password,
-        day: data.day,
+        day: Number(data.day),
         month: data.month,
-        year: data.year,
-      })
+        year: Number(data.year),
+      } as AuthReq)
       if(res.status === 200) {
         // set alert to success with message
         setupAlert('success', 'User account successfully created.')

@@ -1,6 +1,23 @@
 import { z } from 'zod'
 import { monthNames } from '../date'
 
+export interface AuthReq {
+  full_name: string
+  contact_number: string
+  email: string
+  password: string
+  day: number
+  month: string
+  year: number
+}
+
+export interface AuthRes<T> {
+  data: T
+  description: string
+  dev_message: string
+  title: string
+}
+
 /**
  * Validation zod Schema
  * full_name: Not empty, no symbols, no spaces around.
@@ -73,12 +90,15 @@ export const validationSchema = z.object({
       message: 'minimum password is 8'
     })
     .refine(val => {
+      const lowercaseReg = /[a-z]/
+      const uppercaseReg = /[A-Z]/
+      const numberReg = /[0-9]/
       // Check Lower case (a-z)
-      if (val.search(/[a-z]/i) < 0) return false
+      if (!lowercaseReg.test(val)) return false
       // Check upper case (A-Z)
-      if (val.search(/[A-Z]/i) < 0) return false
+      if (!uppercaseReg.test(val)) return false
       // Check numbers (0-9)
-      if (val.search(/[0-9]/) < 0) return false
+      if (!numberReg.test(val)) return false
 
       return true
     }, {
@@ -103,7 +123,7 @@ export const validationSchema = z.object({
     // Not empty
     required_error: 'month is required'
   })
-    // Not empty
+    // Not empty , (Jan ... Dec)
     .min(3, {
       message: 'month is required'
     }),
