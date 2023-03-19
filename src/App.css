@@ -10,7 +10,10 @@
   @apply font-bold text-base capitalize;
 }
 
-.input-group .inner-input-label:after {
+/**
+  Add * at the last
+ */
+.input-group .label-required:after {
   content: '*';
   @apply ml-1 text-red-500;
 }

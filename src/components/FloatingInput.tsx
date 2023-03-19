@@ -11,9 +11,10 @@ interface Props {
   className?: string
   onChange?: (event: FormEvent<HTMLInputElement>) => void
   autocomplete?: string
+  placeholder?: string
   register?: ReturnType<UseFormRegister<any>>
 }
-function FloatingInput({ id, type, label, errorMsg, className, onChange, autocomplete, register }: Props) {
+function FloatingInput({ id, type, label, errorMsg, className, autocomplete, placeholder, register }: Props) {
   const statusInputClasses = useMemo(() => {
     const classes: string[] = []
     if (errorMsg) {
@@ -46,7 +47,7 @@ function FloatingInput({ id, type, label, errorMsg, className, onChange, autocom
           id={id}
           className={`block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none
          focus:outline-none focus:ring-0 focus:border-blue-600 peer ${statusInputClasses}`}
-          placeholder=" "
+          placeholder={placeholder || ' '}
           autoComplete={autocomplete}
           {...register}
         />
@@ -62,8 +63,8 @@ function FloatingInput({ id, type, label, errorMsg, className, onChange, autocom
         </label>
       </div>
       {errorMsg ?
-        <p className="mt-0.5 text-sm text-[#DA1E28]">
-          {errorMsg}
+        <p className="mt-0.5 text-sm text-error">
+          Sorry, {errorMsg}
         </p> : null
       }
     </div>

@@ -62,9 +62,25 @@ function App() {
       .map((date, i) => date + i)
   }, [yearWatch, monthWatch])
 
+  const resetAlert = () => {
+    setAlertStatus('success')
+    setAlertMsg('')
+  }
+
+  /**
+   * setup alert and reset it after 2500 ms
+   * @param status {AlertStatus} - Status of Alert
+   * @param msg {string} - Alert message
+   */
+  const setupAlert = (status: AlertStatus, msg: string) => {
+    setAlertStatus(status)
+    setAlertMsg(msg)
+
+    setTimeout(resetAlert, 2500)
+  }
+
   const onSubmit: SubmitHandler<ValidationSchema> = async (data) => {
     try {
-      console.log(data)
       // Reset Alert
       setAlertStatus('success')
       setAlertMsg('')
@@ -75,19 +91,17 @@ function App() {
         email: data.email,
         password: data.password,
         day: data.day,
-        month: monthNames.findIndex(monthName => monthName === data.month),
+        month: data.month,
         year: data.year,
       })
-      console.log(res)
-      // set alert to success with message
-      setAlertStatus('success')
-      setAlertMsg('User account successfully created.')
-      // reset()
+      if(res.status === 200) {
+        // set alert to success with message
+        setupAlert('success', 'User account successfully created.')
+      }
     } catch (e) {
       console.error(e)
       // Set alert to error with message
-      setAlertStatus('error')
-      setAlertMsg('There was an error creating the account')
+      setupAlert('error', 'There was an error creating the account')
     }
   }
 
@@ -117,7 +131,7 @@ function App() {
                   <FloatingInput
                     id="full-name-field"
                     errorMsg={errors.fullName?.message}
-                    label={<span className="inner-input-label">Full Name</span>}
+                    label={<span className="label-required">Full Name</span>}
                     register={register('fullName')}
                   />
                 </div>
@@ -131,7 +145,7 @@ function App() {
                   <FloatingInput
                     id="contact-number-field"
                     errorMsg={errors.contactNumber?.message}
-                    label={<span className="inner-input-label">Contact Number</span>}
+                    label={<span className="label-required">Contact Number</span>}
                     type="tel"
                     register={register('contactNumber')}
                   />
@@ -146,7 +160,7 @@ function App() {
                   <FloatingInput
                     id="email-field"
                     errorMsg={errors.email?.message}
-                    label={<span className="inner-input-label">Email Address</span>}
+                    label={<span className="label-required">Email Address</span>}
                     register={register('email')}
                     type="email"
                   />
@@ -161,7 +175,7 @@ function App() {
                   <FloatingInput
                     id="password-field"
                     errorMsg={errors.password?.message}
-                    label={<span className="inner-input-label">Create Password</span>}
+                    label={<span className="label-required">Create Password</span>}
                     type="password"
                     autocomplete="true"
                     register={register('password')}
@@ -177,7 +191,7 @@ function App() {
                   <FloatingInput
                     id="confirm-password-field"
                     errorMsg={errors.confirmPassword?.message}
-                    label={<span className="inner-input-label">Create Password</span>}
+                    label={<span className="label-required">Create Password</span>}
                     type="password"
                     autocomplete="true"
                     register={register('confirmPassword')}
@@ -237,9 +251,9 @@ function App() {
                       ))}
                     </select>
                   </div>
-                  <div>
+                  <p>
                     {errors.day?.message || errors.year?.message || errors.month?.message}
-                  </div>
+                  </p>
                 </div>
               </div>
             </div>

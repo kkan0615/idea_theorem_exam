@@ -33,7 +33,7 @@ function Alert({ status = 'success', children }: Props) {
         }
       </div>
       <span className="sr-only">{status}</span>
-      <div>{children}</div>
+      <p>{children}</p>
     </div>
   )
 }
