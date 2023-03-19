@@ -7,7 +7,7 @@
 }
 
 .input-group .input-label {
-  @apply font-bold text-base;
+  @apply font-bold text-base capitalize;
 }
 
 .input-group .inner-input-label:after {

@@ -1,8 +1,10 @@
 import { useMemo } from 'react'
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai'
 
+export type AlertStatus = 'success' | 'error'
+
 interface Props {
-  status?: 'success' | 'error'
+  status?: AlertStatus
   children?: React.ReactElement | string
 }
 

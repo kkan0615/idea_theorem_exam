@@ -1,16 +1,16 @@
 # Idea Theorem Full Stack Developer Exam
 
-### Install
+### Install dependencies
 ```shell
 npm install
 ```
 
-### Dev
+### Start app with development
 ```shell
 npm run dev
 ```
 
-### Production
+### Build app
 ```shell
 npm run build
 ```
@@ -18,8 +18,10 @@ npm run build
 ## Packages
 - [tailwindcss](https://tailwindcss.com/): A utility-first CSS framework packed with classes
 - [flowbite](https://flowbite.com/): Build websites even faster with components on top of Tailwind CSS
-- [axios](https://www.npmjs.com/package/axios)
+- [axios](https://www.npmjs.com/package/axios): HTTP request
 - [react-icons](https://react-icons.github.io/react-icons/): popular icons collection
+- [zod](https://zod.dev/): TypeScript-first schema validation with static type inference
+- [react-hook-form](https://react-hook-form.com/): Performant, flexible and extensible forms with easy-to-use validation.
 
 ## Files
 [Figma](https://www.figma.com/file/hi5v3c3hE0ax8pbppUA1xY/Account-Creation-Test)
