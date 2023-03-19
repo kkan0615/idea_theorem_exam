@@ -134,3 +134,26 @@ export const validationSchema = z.object({
     path: ['day'],
     message: 'Invalid day',
   })
+  // Check any future
+  .refine(data => {
+    const today = new Date()
+    const year = Number(data.year)
+    // Check year is over current year
+    if (year > today.getFullYear()) return false
+    // Check month or day is over today
+    else if (year === today.getFullYear()) {
+      // Check month is over
+      // Find the month by month name
+      const numberOfMonth = monthNames.findIndex(monthName => monthName === data.month)
+      if (numberOfMonth === -1) return false
+      if (numberOfMonth > today.getMonth()) return false
+      // Check day is over today
+      const day = Number(data.day)
+      if (numberOfMonth === today.getMonth() && day > today.getDate()) return false
+    }
+
+    return true
+  }, {
+    path: ['year'],
+    message: 'Too Young',
+  })
